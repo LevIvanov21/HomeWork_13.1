@@ -16,6 +16,10 @@ class Category:
         self.all_quantity_unique_product = Category.all_quantity_unique_product
 
 
+    def __str__(self):
+        return f"{self.__class__.__name__}\nКоличество продуктов: {self.all_quantity_unique_product}"
+
+
     def add_product(self, value):
         """метод, который будет принимать на вход объект товара и добавлять его в список."""
         self.__product.append(value)
@@ -60,3 +64,11 @@ class Product:
             self.__price = new_price
         else:
             print("Введена некорректная сумма")
+
+
+    def __str__(self):
+        return f"{self.__class__.__name__}, {self.price} руб.\nОстаток: {self.quantity_in_stock} шт."
+
+
+    def __add__(self, other):
+        return self.price*self.quantity_in_stock + other.price*other.quantity_in_stock
