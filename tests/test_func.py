@@ -1,7 +1,7 @@
 # Импортируем необходимые пакеты и классы
 import pytest
-from src.utils import Category
-from src.utils import Product
+from src.func import Category
+from src.func import Product
 
 @pytest.fixture
 def test_correct_Category():
