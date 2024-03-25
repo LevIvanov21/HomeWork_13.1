@@ -15,15 +15,15 @@ class Category:
         self.all_quantity_category = Category.all_quantity_category
         self.all_quantity_unique_product = Category.all_quantity_unique_product
 
-
     def __str__(self):
-        return f"{self.__class__.__name__}\nКоличество продуктов: {self.all_quantity_unique_product}"
+        return f"{self.__class__.__name__}\nКоличество продуктов: {len(self)}"
 
+    def __len__(self):
+        return len(self.__product)
 
     def add_product(self, value):
         """метод, который будет принимать на вход объект товара и добавлять его в список."""
         self.__product.append(value)
-
 
     @property
     def product(self):
@@ -47,16 +47,13 @@ class Product:
         self.__price = float(price)
         self.quantity_in_stock = quantity_in_stock
 
-
     @classmethod
     def create_product(cls, name, description, price, quantity_in_stock):
         return cls(name, description, price, quantity_in_stock)
 
-
     @property
     def price(self):
         return self.__price
-
 
     @price.setter
     def price(self, new_price):
@@ -65,10 +62,8 @@ class Product:
         else:
             print("Введена некорректная сумма")
 
-
     def __str__(self):
         return f"{self.__class__.__name__}, {self.price} руб.\nОстаток: {self.quantity_in_stock} шт."
 
-
     def __add__(self, other):
-        return self.price*self.quantity_in_stock + other.price*other.quantity_in_stock
+        return self.price * self.quantity_in_stock + other.price * other.quantity_in_stock
