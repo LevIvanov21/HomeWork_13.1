@@ -23,7 +23,9 @@ class Category:
 
     def add_product(self, value):
         """метод, который будет принимать на вход объект товара и добавлять его в список."""
-        self.__product.append(value)
+        if isinstance(value, Product):
+            self.__product.append(value)
+        raise TypeError("Невозможно добавить любой другой объект")
 
     @property
     def product(self):
@@ -66,4 +68,40 @@ class Product:
         return f"{self.__class__.__name__}, {self.price} руб.\nОстаток: {self.quantity_in_stock} шт."
 
     def __add__(self, other):
-        return self.price * self.quantity_in_stock + other.price * other.quantity_in_stock
+        if isinstance(other, self.__class__):
+            return self.price * self.quantity_in_stock + other.price * other.quantity_in_stock
+        raise ValueError("Можно складывать товары только из одинаковых классов продуктов")
+
+
+class Smartphone(Product):
+    """Класс наследуется от базового класса Product c добавлением следующих свойств:
+    производительность, модель, объем встроенной памяти, цвет."""
+    performance: int
+    model: str
+    built_in_memory: int
+    color: str
+
+    def __init__(self, performance: int, model: str, built_in_memory: int, color: str,
+                 name: str, description: str, price: float,
+                 quantity_in_stock: int):
+        super().__init__(name, description, price, quantity_in_stock)
+        self.performance = performance
+        self.model = model
+        self.built_in_memory = built_in_memory
+        self.color = color
+
+
+class LawnGrass(Product):
+    """Класс наследуется от базового класса Product c добавлением следующих свойств:
+    страна-производитель, срок прорастания, цвет."""
+    manufacturer_country: str
+    germination_period: int
+    color: str
+
+    def __init__(self, manufacturer_country: str, germination_period: int, color: str, name: str, description: str,
+                 price: float,
+                 quantity_in_stock: int):
+        super().__init__(name, description, price, quantity_in_stock)
+        self.manufacturer_country = manufacturer_country
+        self.germination_period = germination_period
+        self.color = color
