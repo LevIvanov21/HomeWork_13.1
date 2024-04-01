@@ -25,7 +25,8 @@ class Category:
         """метод, который будет принимать на вход объект товара и добавлять его в список."""
         if isinstance(value, Product):
             self.__product.append(value)
-        raise TypeError("Невозможно добавить любой другой объект")
+        else:
+            raise TypeError("Невозможно добавить любой другой объект")
 
     @property
     def product(self):
