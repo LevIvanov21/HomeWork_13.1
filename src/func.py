@@ -70,7 +70,8 @@ class Product:
     def __add__(self, other):
         if isinstance(other, self.__class__):
             return self.price * self.quantity_in_stock + other.price * other.quantity_in_stock
-        raise ValueError("Можно складывать товары только из одинаковых классов продуктов")
+        else:
+            raise ValueError("Можно складывать товары только из одинаковых классов продуктов")
 
 
 class Smartphone(Product):
