@@ -69,7 +69,7 @@ class Product:
         return f"{self.__class__.__name__}, {self.price} руб.\nОстаток: {self.quantity_in_stock} шт."
 
     def __add__(self, other):
-        if isinstance(other, self.__class__):
+        if type(other) == type(self):
             return self.price * self.quantity_in_stock + other.price * other.quantity_in_stock
         else:
             raise ValueError("Можно складывать товары только из одинаковых классов продуктов")
