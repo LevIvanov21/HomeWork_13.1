@@ -1,3 +1,6 @@
+from src.abstract_product import AbstractProduct
+from src.Mixinlog import Mixinlog
+
 class Category:
     """Создадим класс "Категории" для вывода товара, его описания"""
     all_quantity_category = 0
@@ -37,7 +40,7 @@ class Category:
         return output
 
 
-class Product:
+class Product(AbstractProduct, Mixinlog):
     """Саздадим класс "Продукт" для развертывания информации о товаре"""
     name: str
     description: str
