@@ -39,6 +39,19 @@ class Category:
             output += f"{product.name}\n{float(product.price)} шт.\nВ наличии{product.quantity_in_stock} "
         return output
 
+    def average(self):
+        """
+       Функия для поиски среднего ценника всех продуктов
+       """
+        product_sum = 0
+        try:
+            for good in self.__product:
+                product_sum += good.price
+            result = product_sum / len(self.__product)
+            return result
+        except ZeroDivisionError:
+            return 0
+
 
 class Product(AbstractProduct, Mixinlog):
     """Саздадим класс "Продукт" для развертывания информации о товаре"""
@@ -72,10 +85,12 @@ class Product(AbstractProduct, Mixinlog):
         return f"{self.__class__.__name__}, {self.price} руб.\nОстаток: {self.quantity_in_stock} шт."
 
     def __add__(self, other):
+        if self.quantity_in_stock == 0 or other.quantity_in_stock == 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен.")
         if type(other) == type(self):
             return self.price * self.quantity_in_stock + other.price * other.quantity_in_stock
         else:
-            raise ValueError("Можно складывать товары только из одинаковых классов продуктов")
+            raise TypeError("Можно складывать товары только из одинаковых классов продуктов.")
 
 
 class Smartphone(Product):
