@@ -25,17 +25,16 @@ class Category:
     def __len__(self):
         product_len = 0
         for i in self.__product:
-            product_len += i
+            product_len += i.quantity_in_stock
         return product_len
 
     def add_product(self, value):
         """метод, который будет принимать на вход объект товара и добавлять его в список."""
         if isinstance(value, Product):
+            if value.quantity_in_stock == 0:
+                raise TypeError("Невозможно добавить любой другой объект")
             self.__product.append(value)
-        else:
-            raise TypeError("Невозможно добавить любой другой объект")
-        if value.quantity_in_stock == 0:
-            raise ValueError("Нельзя добавить товар с нулевым количеством.")
+        raise ValueError("Нельзя добавить товар с нулевым количеством.")
 
     @property
     def product(self):
